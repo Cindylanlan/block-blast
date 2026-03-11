@@ -1,3 +1,28 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* 手机端：单屏显示，禁止上下滚动 */
+@media (max-width: 480px), (max-height: 700px) {
+  html,
+  body {
+    overflow: hidden;
+    height: 100dvh;
+    height: 100vh;
+    position: fixed;
+    width: 100%;
+  }
+
+  #root {
+    min-height: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
 #root {
   min-height: 100vh;
 }

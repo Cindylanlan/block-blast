@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react'
+import { startTransition, useEffect, useState } from 'react'
 
 import { GamePage } from './pages/GamePage'
 import { StartPage } from './pages/StartPage'
+import { audioStore } from './services/audioStore'
+import { warmUpSpeech } from './services/speechCombo'
 import './App.css'
 
 const HIGH_SCORE_KEY = 'block-blast-best-score'
@@ -21,8 +23,12 @@ function App() {
   }, [bestScore])
 
   const handleStart = () => {
+    audioStore.unlock()
+    warmUpSpeech()
     setGameSession((current) => current + 1)
-    setScreen('game')
+    startTransition(() => {
+      setScreen('game')
+    })
   }
 
   if (screen === 'game') {

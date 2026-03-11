@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import type { CSSProperties, PointerEvent as ReactPointerEvent } from 'react'
 
 import type { TrayPiece } from '../game/types'
@@ -5,8 +6,13 @@ import type { TrayPiece } from '../game/types'
 interface PieceTrayProps {
   tray: TrayPiece[]
   activeSlotId: string | null
+  blockedSlotIds: Set<string>
+  warningSlotIds: Set<string>
   disabled: boolean
   onPiecePointerDown: (event: ReactPointerEvent<HTMLButtonElement>, slot: TrayPiece) => void
+  boardCellSize?: number
+  boardGap?: number
+  trayCellSize?: number
 }
 
 const renderPieceMatrix = (slot: TrayPiece) => {
@@ -31,16 +37,36 @@ const renderPieceMatrix = (slot: TrayPiece) => {
   )
 }
 
-export function PieceTray({
+export const PieceTray = memo(function PieceTray({
   tray,
   activeSlotId,
+  blockedSlotIds,
+  warningSlotIds,
   disabled,
   onPiecePointerDown,
+  boardCellSize,
+  boardGap,
+  trayCellSize,
 }: PieceTrayProps) {
+  const effectiveCellSize = trayCellSize ?? boardCellSize ?? 24
+  const effectiveGap = boardGap ?? 6
+  const isBoardSized = (boardCellSize != null || trayCellSize != null)
+  const trayStyle = isBoardSized
+    ? ({
+        '--tray-cell-size': `${effectiveCellSize}px`,
+        '--tray-gap': `${effectiveGap}px`,
+      } as CSSProperties)
+    : undefined
+
   return (
-    <section className="piece-tray">
+    <section
+      className={['piece-tray', isBoardSized ? 'piece-tray--board-sized' : ''].filter(Boolean).join(' ')}
+      style={trayStyle}
+    >
       {tray.map((slot) => {
-        const isDisabled = disabled || slot.used
+        const blocked = blockedSlotIds.has(slot.slotId)
+        const warning = !blocked && warningSlotIds.has(slot.slotId)
+        const isDisabled = disabled || slot.used || blocked
 
         return (
           <button
@@ -49,6 +75,8 @@ export function PieceTray({
             className={[
               'tray-piece',
               slot.used ? 'tray-piece--used' : '',
+              blocked ? 'tray-piece--blocked' : '',
+              warning ? 'tray-piece--warning' : '',
               activeSlotId === slot.slotId ? 'tray-piece--active' : '',
             ]
               .filter(Boolean)
@@ -67,9 +95,9 @@ export function PieceTray({
             >
               {renderPieceMatrix(slot)}
             </div>
-          </button>
-        )
-      })}
-    </section>
-  )
-}
+        </button>
+      )
+    })}
+  </section>
+)
+})
