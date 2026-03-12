@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react'
 
-import type { FloatingScore } from '../hooks/useGameFx'
+import type { FloatingScore } from '../types/fx'
 
 interface ScoreBurstProps {
   floatingScores: FloatingScore[]

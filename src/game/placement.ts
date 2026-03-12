@@ -1,7 +1,6 @@
 import { canPlacePiece, getAbsoluteCells, getPlacementClearLines } from './board'
+import { CONFIG } from './config'
 import type { BoardMatrix, PieceDefinition, PlacementPreview } from './types'
-
-const SNAP_RADIUS = 1.65
 
 interface CandidatePlacement {
   row: number
@@ -63,7 +62,7 @@ export const findPlacementPreview = (
 
   const snappedCandidate = candidates.find(
     (candidate) =>
-      candidate.distance <= SNAP_RADIUS &&
+      candidate.distance <= CONFIG.snapRadius &&
       canPlacePiece(board, piece, candidate.row, candidate.col),
   )
 

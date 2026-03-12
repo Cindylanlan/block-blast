@@ -1,5 +1,7 @@
-export const BOARD_SIZE = 8
-export const TRAY_SIZE = 3
+import { CONFIG } from './config'
+
+export const BOARD_SIZE = CONFIG.boardSize
+export const TRAY_SIZE = CONFIG.traySize
 
 export type PieceColor =
   | 'amber'

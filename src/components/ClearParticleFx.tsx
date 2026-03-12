@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import type { CSSProperties } from 'react'
 
-import type { ClearParticle } from '../hooks/useGameFx'
+import type { ClearParticle } from '../types/fx'
 
 interface ClearParticleFxProps {
   particles: ClearParticle[]

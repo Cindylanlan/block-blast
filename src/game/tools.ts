@@ -1,12 +1,11 @@
+import { CONFIG } from './config'
 import { BOARD_SIZE } from './types'
 import type { BoardMatrix, CellOffset, ToolInventory, ToolType } from './types'
 
 const clamp = (value: number) => Math.max(0, Math.min(BOARD_SIZE - 1, value))
 
 export const createInitialToolInventory = (): ToolInventory => ({
-  reroll: 2,
-  bomb: 2,
-  hammer: 3,
+  ...CONFIG.initialTools,
 })
 
 export const hasToolCharge = (inventory: ToolInventory, tool: ToolType): boolean =>

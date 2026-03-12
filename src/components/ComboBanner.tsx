@@ -1,4 +1,4 @@
-import type { ComboAnchor } from '../hooks/useGameFx'
+import type { ComboAnchor } from '../types/fx'
 
 interface ComboBannerProps {
   text: string | null

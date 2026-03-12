@@ -1,34 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 
-import type { CellOffset, ClearedBlockSnapshot, GameEvent, PieceColor } from '../game/types'
+import type { CellOffset, ClearedBlockSnapshot, GameEvent } from '../game/types'
+import type { ClearParticle, ComboAnchor, FloatingScore } from '../types/fx'
 import { debugProfiler } from '../utils/debugProfiler'
 
 const DEBUG = import.meta.env.DEV
-
-/** 碎裂粒子：每个被消除格子拆成的多块小粒子，散射后下落 */
-export interface ClearParticle {
-  id: number
-  left: number
-  top: number
-  color: PieceColor
-  size: number
-  offsetX: number
-  offsetY: number
-  fallY: number
-  delay: number
-  duration: number
-  opacity: number
-}
-
-export interface FloatingScore {
-  id: number
-  amount: number
-  label: string | null
-  left: number
-  top: number
-  travelX: number
-  travelY: number
-}
 
 interface UseGameFxArgs {
   eventSequence: number
@@ -40,11 +16,6 @@ interface UseGameFxArgs {
   boardPaddingLeft: number
   boardPaddingTop: number
   scoreRect: DOMRect | null
-}
-
-export interface ComboAnchor {
-  left: number
-  top: number
 }
 
 interface UseGameFxResult {
