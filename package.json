@@ -7,6 +7,7 @@
     "dev": "vite --port 5173",
     "dev:mobile": "vite --port 80",
     "build": "tsc -b && vite build",
+    "deploy:gitee": "npm run build && ./deploy-gitee.sh",
     "lint": "eslint .",
     "preview": "vite preview"
   },

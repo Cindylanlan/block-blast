@@ -27,8 +27,8 @@ function debugProfilerPlugin() {
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/block-blast/', // Gitee Pages 子路径，与仓库名一致
   plugins: [debugProfilerPlugin()],
-  base: process.env.GITHUB_PAGES === '1' ? '/block-blast/' : '/',
   server: {
     host: '0.0.0.0',
   },
