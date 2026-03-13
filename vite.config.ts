@@ -28,6 +28,7 @@ function debugProfilerPlugin() {
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [debugProfilerPlugin()],
+  base: process.env.GITHUB_PAGES === '1' ? '/block-blast/' : '/',
   server: {
     host: '0.0.0.0',
   },
