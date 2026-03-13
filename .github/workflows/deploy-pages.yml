@@ -9,7 +9,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write   # 需要写入权限才能创建 gh-pages 分支
       pages: write
       id-token: write
     steps:
