@@ -3,7 +3,6 @@ import { useCallback, useEffect, useState } from 'react'
 import type { GameEvent } from '../game/types'
 import { audioStore } from '../services/audioStore'
 import { debugProfiler } from '../utils/debugProfiler'
-import { vibrateOnClear } from '../utils/vibrate'
 
 const BGM_VOLUME_KEY = 'block-blast-bgm-volume'
 const SFX_VOLUME_KEY = 'block-blast-sfx-volume'
@@ -175,7 +174,6 @@ export const useGameAudio = (eventSequence: number, recentEvents: GameEvent[]): 
           break
         case 'linesCleared':
           playClearChime(context, event.lineCount, dest)
-          vibrateOnClear(event.lineCount)
           break
         case 'comboAdvanced': {
           const tier =
