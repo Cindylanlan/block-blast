@@ -15,7 +15,6 @@ import { ToolBar } from '../components/ToolBar'
 import { BOARD_SIZE } from '../game/types'
 import { applyGameAction, createInitialGameState } from '../game/gameState'
 import { speakCombo } from '../services/speechCombo'
-import { vibrateOnClear } from '../utils/vibrate'
 import { purchasePack, purchaseRevive, showReviveAd, showRewardedAd } from '../services/monetization'
 import { warmUpSpeech } from '../services/speechCombo'
 import { debugProfiler } from '../utils/debugProfiler'
@@ -65,12 +64,6 @@ export function GamePage({ bestScore, onBestScoreChange, onBackToMenu }: GamePag
                 ? 'great'
                 : 'good'
           speakCombo(tier)
-        }
-        const linesEvent = next.recentEvents.find(
-          (e): e is typeof e & { type: 'linesCleared' } => e.type === 'linesCleared',
-        )
-        if (linesEvent) {
-          vibrateOnClear(linesEvent.lineCount)
         }
         return next
       })
